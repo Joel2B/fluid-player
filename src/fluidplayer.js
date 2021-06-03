@@ -874,6 +874,7 @@ const fluidPlayerClass = function () {
     };
 
     self.contolProgressbarUpdate = () => {
+        console.log('contolProgressbarUpdate');
         const currentProgressTag = self.domRef.player.parentNode.getElementsByClassName('fluid_controls_currentprogress');
 
         for (let i = 0; i < currentProgressTag.length; i++) {
