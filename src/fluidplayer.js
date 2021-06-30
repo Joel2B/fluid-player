@@ -1114,7 +1114,7 @@ const fluidPlayerClass = function () {
                     .replace(/\s/g, '')
                     .replace(/px/g, '')
                     .split(',')
-                ;
+                    ;
             }
         } catch (e) {
             coordinates = null;
@@ -1208,7 +1208,9 @@ const fluidPlayerClass = function () {
         };
 
         const onProgressbarMouseMove = event => {
-            const currentX = self.getEventOffsetX(event, event.target.parentNode);
+            // # event.target.parentNode => document.getElementById(self.videoPlayerId + "_fluid_controls_progress_container")
+            // reason for change: while holding down on the progress bar and exiting the bar, it shows wrong position of the progress bar
+            var currentX = self.getEventOffsetX(event, document.getElementById(self.videoPlayerId + "_fluid_controls_progress_container"));
             initialPosition = NaN; // mouse up will fire after the move, we don't want to trigger the initial position in the event of iOS
             shiftTime(currentX);
             self.contolProgressbarUpdate(self.videoPlayerId);
@@ -1220,8 +1222,9 @@ const fluidPlayerClass = function () {
             document.removeEventListener('touchmove', onProgressbarMouseMove);
             document.removeEventListener('mouseup', onProgressbarMouseUp);
             document.removeEventListener('touchend', onProgressbarMouseUp);
-
-            let clickedX = self.getEventOffsetX(event, event.target.parentNode);
+            // # event.target.parentNode => document.getElementById(self.videoPlayerId + "_fluid_controls_progress_container")
+            // reason for change: when you hold down and exit, and stop pressing while outside the progress bar item, the position of the progress bar returns to the beginning of the item where you stopped pressing
+            var clickedX = self.getEventOffsetX(event, document.getElementById(self.videoPlayerId + "_fluid_controls_progress_container"));
 
             if (isNaN(clickedX) && !isNaN(initialPosition)) {
                 clickedX = initialPosition;

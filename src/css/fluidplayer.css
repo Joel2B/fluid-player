@@ -1315,3 +1315,10 @@ _:-ms-lang(x),
     content: 'HD';
     padding-left: 3px;
 }
+
+/* this prevents items from being selected and causing unwanted behavior for desktop users */
+.fluid_video_wrapper {
+    -webkit-tap-highlight-color: rgba(0 ,0, 0, 0);
+    user-select: none;
+  }
+  
